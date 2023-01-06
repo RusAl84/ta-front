@@ -57,34 +57,31 @@ const linksList = [
     link: 'https://quasar.dev'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
+    title: 'Система обнаружения активных эксплоитов в корпоративном комьюнити',
     icon: 'code',
-    link: 'https://github.com/quasarframework'
+    link: '/ae'
   },
+
   {
-    title: 'Discord Chat Channel',
+    title: 'Система анализа текстов для распознавания именованных сущностей',
+    icon: 'record_voice_over',
+    link: '/ner'
+  },
+    {
+    title: 'Система анализа диалоговых текстов на основе тематического моделирования',
     caption: 'chat.quasar.dev',
     icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    link: '/tm'
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
+    title: 'Система классификации текстов с учетом векторной модели',
     icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
+    link: '/ct'
   },
   {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
+    title: 'Cистема анализа сетевой активности для обнаружения вторжений',
     icon: 'public',
-    link: 'https://facebook.quasar.dev'
+    link: '/sa'
   }
 ]
 
