@@ -52,12 +52,13 @@ import EssentialLink from 'components/EssentialLink.vue'
 const linksList = [
   {
     title: 'О проекте',
-    caption: 'quasar.dev',
+    caption: 'участники',
     icon: 'school',
     link: 'https://quasar.dev'
   },
   {
     title: 'Система обнаружения активных эксплоитов в корпоративном комьюнити',
+    caption: 'Красноперова Ирина',
     icon: 'code',
     link: '/ae'
   },
@@ -65,21 +66,24 @@ const linksList = [
   {
     title: 'Система анализа текстов для распознавания именованных сущностей',
     icon: 'record_voice_over',
+    caption: 'Бондарь Андрей',
     link: '/ner'
   },
     {
     title: 'Система анализа диалоговых текстов на основе тематического моделирования',
-    caption: 'chat.quasar.dev',
+    caption: 'Дудка Александр',
     icon: 'chat',
     link: '/tm'
   },
   {
     title: 'Система классификации текстов с учетом векторной модели',
+    caption: 'Савкин Никита',
     icon: 'rss_feed',
     link: '/ct'
   },
   {
     title: 'Cистема анализа сетевой активности для обнаружения вторжений',
+    caption: 'Глаголева Марина',
     icon: 'public',
     link: '/sa'
   }
