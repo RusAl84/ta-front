@@ -1,37 +1,34 @@
 <template>
   <q-page>
     <q-card class="chatmessages">
-      <q-card>
-        <q-card-section>
-          <!-- <q-form @submit="submitFile" class="q-gutter-md">
-            <q-file
-              name="File"
-              v-model="file"
-              filled
-              label="Загрузите файл с примером переписки"
+      <div class="flexrow">
+        <div>
+          <q-card-section>
+            <div class="text-h6">Загрузка данных:</div>
+          </q-card-section>
+        </div>
+        <div>
+          <q-card-section>
+            <q-uploader
+              url="http://localhost:5000/uploadae"
+              label="Загрузите свои данные .json, chatMessages/*"
+              color="green"
+              square
+              flat
+              bordered
+              single
+              @uploaded="fileUploaded"
+              accept=".json, chatMessages/*"
+              style="min-width: 600px; max-width: 600px"
             />
-            <div>
-              <q-btn label="Отправить" type="submit" color="primary" />
-            </div>
-          </q-form> -->
-          <q-uploader
-            url="http://localhost:5000/uploadae"
-            label="Загрузите свои данные .json, chatMessages/*"
-            color="green"
-            square
-            flat
-            bordered
-            single
-            @uploaded="fileUploaded"
-            accept=".json, chatMessages/*"
-            style="min-width: 600px; max-width: 600px"
-          />
-        </q-card-section>
-      </q-card>
-      <q-card>
+          </q-card-section>
+        </div>
+      </div>
+      <q-card-section>
         <div class="editorclass">
           <q-editor
             v-model="chatmessages"
+            max-height="300px"
             :dense="$q.screen.lt.md"
             :toolbar="[
               [
@@ -118,8 +115,18 @@
             }"
           />
         </div>
-      </q-card>
+      </q-card-section>
     </q-card>
+    <q-card class="chatmessages">
+      <div class="flexrow">
+        <div>
+          <q-card-section>
+            <div class="text-h6">Обработка данных данных:</div>
+          </q-card-section>
+        </div>
+
+        <div></div></div
+    ></q-card>
   </q-page>
 </template>
 
@@ -155,8 +162,14 @@ export default {
   padding-top: 10px
   padding-left: 10px
   padding-r: 10px
+
 .chatmessages
   padding: 10px
+  margin: 10px
+.flexrow
+  display: flex
+  flex-flow: row wrap
+  justify-content: flex-start
 .editorclass
   max-height: 500px
 </style>
