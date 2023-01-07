@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <div class="container"></div>
     <form
-      action="0.0.0.0:5000/upload"
+      action="http://127.0.0.1:5000/uploadsa"
       method="POST"
       enctype="multipart/form-data"
     >
@@ -29,7 +29,7 @@ export default {
 
       const response = await axios({
         method: "post",
-        url: "0.0.0.0::5000/upload",
+        url: "http://127.0.0.1:5000/uploadsa",
         data: form,
         headers: {
           "Content-Type": "multipart/form-data; ",
