@@ -123,6 +123,26 @@
           <q-card-section>
             <div class="text-h6">Обработка данных данных:</div>
           </q-card-section>
+          <q-input
+            class="inputtext"
+            v-model="proc_text"
+            type="textarea"
+            autogrow
+            float-label="Введите текст для анализа"
+          />
+          <q-card-section>
+            <q-btn color="primary" label="Обработать" @click="onProc" />
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h6">Полученный портрет:</div>
+          </q-card-section>
+          <q-input
+            class="inputtext"
+            v-model="resp_text"
+            type="textarea"
+            readonly
+            autogrow
+          />
         </div>
 
         <div></div></div
@@ -139,6 +159,8 @@ export default {
     return {
       file: "",
       chatmessages: "",
+      proc_text: "",
+      resp_text: "",
     };
   },
   methods: {
@@ -147,10 +169,24 @@ export default {
     },
     fileUploaded({ files, xhr }) {
       // console.log(JSON.parse(xhr.response));
-      console.log(xhr.response);
+      // console.log(xhr.response);
       // this.chatmessages = JSON.parse(xhr.response.data);
       this.chatmessages = xhr.response;
       // this.$refs.uploader.reset();
+    },
+    async onProc() {
+      const form = new FormData();
+      form.append("file", this.file);
+
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:5000/get_pattern",
+        data: {
+          text: this.proc_text,
+        },
+      });
+      console.log(response);
+      this.resp_text = response["data"];
     },
   },
 };
@@ -172,4 +208,6 @@ export default {
   justify-content: flex-start
 .editorclass
   max-height: 500px
+.inputtext
+  width: 800px
 </style>

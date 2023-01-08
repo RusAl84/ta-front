@@ -37,6 +37,7 @@ export default {
       });
       console.log(response);
     },
+
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
