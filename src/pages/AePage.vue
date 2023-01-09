@@ -10,8 +10,9 @@
         <div>
           <q-card-section>
             <q-uploader
-              url="http://localhost:5000/uploadae"
-              label="Загрузите свои данные .json, chatMessages/*"
+              url="http://127.0.0.1:5000/uploadae"
+              label="Загрузите свои
+            данные .json, chatMessages/*"
               color="green"
               square
               flat
@@ -153,11 +154,14 @@
 <script>
 import { defineComponent, ref } from "vue";
 import axios from "axios";
+// import * as cfg from "../config.js";
 
 export default {
   data() {
     return {
       file: "",
+      // host: cfg.host,
+      // hostae: cfg.host + "uploadae",
       chatmessages: "",
       proc_text: "",
       resp_text: "",
@@ -180,7 +184,7 @@ export default {
 
       const response = await axios({
         method: "post",
-        url: "http://localhost:5000/get_pattern",
+        url: cfg.host + "get_pattern",
         data: {
           text: this.proc_text,
         },
