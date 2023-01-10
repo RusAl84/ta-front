@@ -169,7 +169,6 @@
               <q-btn color="primary" label="Очистить базу" @click="onClearDB" />
             </q-card-section>
           </div>
-
           <q-card-section v-if="all_data.length > 1">
             <div v-for="(line, i) in all_data" :key="i">
               <div>Исходный текст сообщения: {{ line.text }}</div>
@@ -190,6 +189,15 @@
         </div>
       </div>
     </q-card>
+    <q-card class="chatmessages">
+      <div class="flexrow">
+        <div>
+          <q-card-section>
+            <div class="text-h6">Найденные сообщения:</div>
+          </q-card-section>
+        </div>
+      </div></q-card
+    >
   </q-page>
 </template>
 
