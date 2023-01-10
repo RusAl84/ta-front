@@ -153,9 +153,7 @@
               @click="onProcAdd"
             />
           </q-card-section>
-        </div>
-
-        <div></div></div
+        </div></div
     ></q-card>
     <q-card class="chatmessages">
       <div class="flexrow">
@@ -163,10 +161,31 @@
           <q-card-section>
             <div class="text-h6">База скомпроментированных сообщений:</div>
           </q-card-section>
-        </div>
-        <div>
-          <q-card-section>
-            <q-btn color="primary" label="Очистить базу" @click="onClearDB" />
+          <div class="flexrow">
+            <q-card-section>
+              <q-btn color="primary" label="Загрузить базу" @click="onLoadDB" />
+            </q-card-section>
+            <q-card-section>
+              <q-btn color="primary" label="Очистить базу" @click="onClearDB" />
+            </q-card-section>
+          </div>
+
+          <q-card-section v-if="all_data.length > 1">
+            <div v-for="(line, i) in all_data" :key="i">
+              <div>Исходный текст сообщения: {{ line.text }}</div>
+              <div>Очищенный текст: {{ line.remove_all }}</div>
+              <div>Текст в нормальной форме: {{ line.normal_form }}</div>
+              <div>
+                Ключевые слова по алгоритму Rake: {{ line.Rake_Summarizer }}
+              </div>
+              <div>
+                Ключевые слова по алгоритму Yake: {{ line.YakeSummarizer }}
+              </div>
+              <div>
+                Ключевые слова по алгоритму BERT: {{ line.BERT_Summarizer }}
+              </div>
+              <br />
+            </div>
           </q-card-section>
         </div>
       </div>
@@ -190,6 +209,18 @@ export default {
       proc_text: ref(""),
       resp_text: ref(""),
       resp_data: ref(""),
+      all_data: ref([{}]),
+      // all_data: ref([
+      //   {
+      //     text: "",
+      //     remove_all: "",
+      //     normal_form: "",
+      //     Rake_Summarizer: "",
+      //     YakeSummarizer: "",
+      //     BERT_Summarizer: "",
+      //     print_text: "",
+      //   },
+      // ]),
     };
   },
   methods: {
@@ -221,7 +252,19 @@ export default {
         url: cfg.host + "get_pattern_add",
         data: this.resp_data,
       });
-      console.log(response);
+      this.all_data = response.data;
+      console.log("this.resp_data");
+      console.log(this.all_data);
+    },
+    async onLoadDB() {
+      const response = await axios({
+        method: "get",
+        url: cfg.host + "load_db",
+        data: this.resp_data,
+      });
+      this.all_data = response.data;
+
+      console.log(this.all_data);
     },
     async onClearDB() {
       const response = await axios({
