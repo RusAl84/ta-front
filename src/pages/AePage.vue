@@ -146,17 +146,29 @@
             readonly
             autogrow
           />
+          <q-card-section>
+            <q-btn
+              color="primary"
+              label="Добавить в базу скомпрометированных сообщений"
+              @click="onProcAdd"
+            />
+          </q-card-section>
         </div>
 
         <div></div></div
     ></q-card>
     <q-card class="chatmessages">
       <div class="flexrow">
-        <q-card-section>
-          <div class="text-h6">
-            Получение сжатых портретов (суммаризация) текстов:
-          </div>
-        </q-card-section>
+        <div>
+          <q-card-section>
+            <div class="text-h6">База скомпроментированных сообщений:</div>
+          </q-card-section>
+        </div>
+        <div>
+          <q-card-section>
+            <q-btn color="primary" label="Очистить базу" @click="onClearDB" />
+          </q-card-section>
+        </div>
       </div>
     </q-card>
   </q-page>
@@ -175,8 +187,9 @@ export default {
       //url="http://127.0.0.1:5000/uploadae"
       hostae: cfg.host + "/uploadae",
       chatmessages: "",
-      proc_text: "",
-      resp_text: "",
+      proc_text: ref(""),
+      resp_text: ref(""),
+      resp_data: ref(""),
     };
   },
   methods: {
@@ -191,9 +204,6 @@ export default {
       // this.$refs.uploader.reset();
     },
     async onProc() {
-      const form = new FormData();
-      form.append("file", this.file);
-
       const response = await axios({
         method: "post",
         url: cfg.host + "get_pattern",
@@ -202,7 +212,23 @@ export default {
         },
       });
       console.log(response);
-      this.resp_text = response["data"];
+      this.resp_data = response.data;
+      this.resp_text = response.data.print_text;
+    },
+    async onProcAdd() {
+      const response = await axios({
+        method: "post",
+        url: cfg.host + "get_pattern_add",
+        data: this.resp_data,
+      });
+      console.log(response);
+    },
+    async onClearDB() {
+      const response = await axios({
+        method: "get",
+        url: cfg.host + "clear_db",
+      });
+      console.log(response);
     },
   },
 };
