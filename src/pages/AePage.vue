@@ -10,9 +10,9 @@
         <div>
           <q-card-section>
             <q-uploader
-              url="http://127.0.0.1:5000/uploadae"
-              label="Загрузите свои
-            данные .json, chatMessages/*"
+              :url="hostae"
+              label="Загрузите свои данные
+            .json, chatMessages/*"
               color="green"
               square
               flat
@@ -122,7 +122,9 @@
       <div class="flexrow">
         <div>
           <q-card-section>
-            <div class="text-h6">Обработка данных данных:</div>
+            <div class="text-h6">
+              Получение сжатых портретов (суммаризация) текстов:
+            </div>
           </q-card-section>
           <q-input
             class="inputtext"
@@ -148,20 +150,30 @@
 
         <div></div></div
     ></q-card>
+    <q-card class="chatmessages">
+      <div class="flexrow">
+        <q-card-section>
+          <div class="text-h6">
+            Получение сжатых портретов (суммаризация) текстов:
+          </div>
+        </q-card-section>
+      </div>
+    </q-card>
   </q-page>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
 import axios from "axios";
-// import * as cfg from "../config.js";
+import * as cfg from "../config.js";
 
 export default {
   data() {
     return {
       file: "",
-      // host: cfg.host,
-      // hostae: cfg.host + "uploadae",
+      host: cfg.host,
+      //url="http://127.0.0.1:5000/uploadae"
+      hostae: cfg.host + "/uploadae",
       chatmessages: "",
       proc_text: "",
       resp_text: "",
