@@ -193,11 +193,19 @@
       <div class="flexrow">
         <div>
           <q-card-section>
-            <div class="text-h6">Найденные сообщения:</div>
+            <div class="text-h6">
+              Найденные активные эксплоиты в корпоративном комьюнити:
+            </div>
           </q-card-section>
-        </div>
-      </div></q-card
-    >
+          <q-card-section>
+            <q-btn
+              color="primary"
+              label="Поиск активных эксплоитов"
+              @click="onLoadDB"
+            />
+          </q-card-section>
+        </div></div
+    ></q-card>
   </q-page>
 </template>
 
