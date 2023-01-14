@@ -10,7 +10,7 @@
         <div>
           <q-card-section>
             <q-uploader
-              :url="hostae"
+              :url="hostae_uploadae"
               label="Загрузите свои данные
             .json, chatMessages/*"
               color="green"
@@ -204,9 +204,9 @@
               @click="onFindAE"
             />
           </q-card-section>
-          <q-card-section>
+          <!-- <q-card-section>
             {{ filename }}
-          </q-card-section>
+          </q-card-section> -->
         </div>
       </div>
       <q-card-section v-if="ae_data.length > 0">
@@ -229,9 +229,8 @@ export default {
   data() {
     return {
       file: "",
-      host: cfg.host,
-      //url="http://127.0.0.1:5000/uploadae"
-      hostae: cfg.host + "uploadae",
+      hostae: cfg.hostae,
+      hostae_uploadae: cfg.hostae_uploadae,
       chatmessages: "",
       proc_text: ref(""),
       resp_text: ref(""),
@@ -239,17 +238,6 @@ export default {
       all_data: ref([{}]),
       ae_data: ref([{}]),
       filename: ref(""),
-      // all_data: ref([
-      //   {
-      //     text: "",
-      //     remove_all: "",
-      //     normal_form: "",
-      //     Rake_Summarizer: "",
-      //     YakeSummarizer: "",
-      //     BERT_Summarizer: "",
-      //     print_text: "",
-      //   },
-      // ]),
     };
   },
   methods: {
@@ -257,19 +245,14 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     fileUploaded({ files, xhr }) {
-      // console.log(JSON.parse(xhr.response));
-      // console.log(xhr.response);
-      // this.chatmessages = JSON.parse(xhr.response.data);
       let data = JSON.parse(xhr.response);
-      // this.chatmessages = data;
       this.chatmessages = data["text"];
       this.filename = data["filename"];
-      // this.$refs.uploader.reset();
     },
     async onProc() {
       const response = await axios({
         method: "post",
-        url: cfg.host + "get_pattern",
+        url: cfg.hostae + "get_pattern",
         data: {
           text: this.proc_text,
         },
@@ -281,7 +264,7 @@ export default {
     async onProcAdd() {
       const response = await axios({
         method: "post",
-        url: cfg.host + "get_pattern_add",
+        url: cfg.hostae + "get_pattern_add",
         data: this.resp_data,
       });
       this.all_data = response.data;
@@ -291,7 +274,7 @@ export default {
     async onLoadDB() {
       const response = await axios({
         method: "get",
-        url: cfg.host + "load_db",
+        url: cfg.hostae + "load_db",
         data: this.resp_data,
       });
       this.all_data = response.data;
@@ -301,14 +284,14 @@ export default {
     async onClearDB() {
       const response = await axios({
         method: "get",
-        url: cfg.host + "clear_db",
+        url: cfg.hostae + "clear_db",
       });
       console.log(response);
     },
     async onFindAE() {
       const response = await axios({
         method: "post",
-        url: cfg.host + "findae",
+        url: cfg.hostae + "findae",
         data: this.filename,
         headers: {
           "Content-Type": "application/json",

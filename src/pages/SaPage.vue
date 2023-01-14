@@ -1,10 +1,29 @@
 <template>
   <q-page class="flex flex-center">
     <div class="container"></div>
-    <form :action="hostsa" method="POST" enctype="multipart/form-data">
-      <input type="file" name="File" />
-      <input type="submit" value="Обработать" />
-    </form>
+    <div>
+      <div>
+        <q-card class="page">
+          <q-uploader
+            :url="hostsa"
+            label="Загрузите данные для анализа"
+            color="green"
+            square
+            flat
+            bordered
+            single
+            @uploaded="fileUploaded"
+            accept=".pcap, pcap logs/*"
+            style="min-width: 600px; max-width: 600px"
+          />
+        </q-card>
+      </div>
+      <div>
+        <q-card class="page" v-if="output.length > 0">
+          <q-card-section> <span v-html="output"></span> </q-card-section>
+        </q-card>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -17,28 +36,17 @@ export default {
   data() {
     return {
       file: "",
-      host: cfg.host,
-      hostsa: cfg.host + "/uploadsa",
+      hostsa: cfg.hostsa,
+      output: ref(""),
     };
   },
   methods: {
-    async submitFile() {
-      const form = new FormData();
-      form.append("file", this.file);
-
-      const response = await axios({
-        method: "post",
-        url: this.hostsa,
-        data: form,
-        headers: {
-          "Content-Type": "multipart/form-data; ",
-        },
-      });
-      console.log(response);
-    },
-
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
+    },
+    fileUploaded({ files, xhr }) {
+      let data = JSON.parse(xhr.response);
+      this.output = data["text"];
     },
   },
 };
