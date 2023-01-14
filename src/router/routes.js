@@ -29,6 +29,20 @@ const routes = [
     ]
   },
   {
+    path: '/ner',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/NerPage.vue') }
+    ]
+  },
+  {
+    path: '/cl',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/ClPage.vue') }
+    ]
+  },
+  {
     path: '/vis',
     component: () => import('layouts/MainLayout.vue'),
     children: [
