@@ -2,7 +2,7 @@
 import * as cfg from "../config.js";
 
 const axios = Axios.create({
-  baseURL: cfg.host,
+  baseURL: cfg.hosttm,
 })
 
 export default class API {

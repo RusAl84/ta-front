@@ -11,10 +11,10 @@
         <q-btn color="primary" @click="onSendClick">
           Определить тематики диалогов
         </q-btn>
-        <q-btn color="primary" href="http://localhost:5000/static/wc.png">
+        <q-btn color="primary" :href="hosttm1">
           Визуализация облако слов
         </q-btn>
-        <q-btn color="primary" href="http://localhost:5000/static/vis.html">
+        <q-btn color="primary" :href="hosttm2">
           Интерактивная визуализация
         </q-btn>
       </q-card-actions>
@@ -25,10 +25,14 @@
 <script>
 import { computed, defineComponent, ref } from "vue";
 import API from "../api/api";
+import * as cfg from "../config.js";
+
 export default defineComponent({
   name: "PageIndex",
   setup() {
     let text = ref("");
+    let hosttm1 = ref("");
+    let hosttm2 = ref("");
     //  "Главный герой всю жизнь занимается финансовыми махинациями. Это не только приносит ему солидные деньги, но и удовольствие от столь рискованных предприятий. На этот раз он решает взломать компьютерную систему государственного банка и завладеть суммой денег, которой ему хватит до конца жизни. Но нужен напарник, хорошо разбирающийся в компьютерах. Он находит одного парня, отбывшего срок за финансовое преступление. Тот не хочет возвращаться в тюрьму и отказывает мошеннику, но вскоре соглашается. А немногим позже компьютерщик понимает, что на свою долю он может не рассчитывать: его попросту используют. Между напарниками начинается настоящая война за ещё не добытые деньги.";
     let topic_num = ref("5");
     let opti = ref("5");
@@ -36,26 +40,12 @@ export default defineComponent({
       text,
       topic_num,
       opti,
+      hosttm1: cfg.hosttm1,
+      hosttm2: cfg.hosttm2,
     };
   },
-  // // Хук который сработает когда страница создасться
-  // mounted() {
-  //   this.userName = "Login";
-  //   this.intervalCtx = setInterval(async () => {
-  //     try {
-  //       const msg = await API.getMessage(this.lastMsgID);
-  //       if (typeof msg === typeof {}) {
-  //         this.messages.push(msg);
-  //         this.lastMsgID++;
-  //       }
-  //     } catch (e) {}
-  //   }, 1000);
-  // },
-  // unmounted() {
-  //   clearInterval(this.intervalCtx);
-  // },
+
   methods: {
-    // Реакция на кнопку отправки
     async onSendClick() {
       try {
         this.opti = await API.sendMessage(this.text, this.topic_num);
