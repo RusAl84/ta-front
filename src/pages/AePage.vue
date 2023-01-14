@@ -201,10 +201,21 @@
             <q-btn
               color="primary"
               label="Поиск активных эксплоитов"
-              @click="onLoadDB"
+              @click="onFindAE"
             />
           </q-card-section>
-        </div></div
+          <q-card-section>
+            {{ filename }}
+          </q-card-section>
+        </div>
+      </div>
+      <q-card-section v-if="ae_data.length > 0">
+        <div v-for="(line, i) in ae_data" :key="i">
+          <div>Исходный текст сообщения: {{ line.text }}</div>
+          <div>Очищенный текст: {{ line.remove_all }}</div>
+          <div>Текст в нормальной форме: {{ line.normal_form }}</div>
+          <br />
+        </div> </q-card-section
     ></q-card>
   </q-page>
 </template>
@@ -220,12 +231,14 @@ export default {
       file: "",
       host: cfg.host,
       //url="http://127.0.0.1:5000/uploadae"
-      hostae: cfg.host + "/uploadae",
+      hostae: cfg.host + "uploadae",
       chatmessages: "",
       proc_text: ref(""),
       resp_text: ref(""),
       resp_data: ref(""),
       all_data: ref([{}]),
+      ae_data: ref([{}]),
+      filename: ref(""),
       // all_data: ref([
       //   {
       //     text: "",
@@ -247,7 +260,10 @@ export default {
       // console.log(JSON.parse(xhr.response));
       // console.log(xhr.response);
       // this.chatmessages = JSON.parse(xhr.response.data);
-      this.chatmessages = xhr.response;
+      let data = JSON.parse(xhr.response);
+      // this.chatmessages = data;
+      this.chatmessages = data["text"];
+      this.filename = data["filename"];
       // this.$refs.uploader.reset();
     },
     async onProc() {
@@ -288,6 +304,20 @@ export default {
         url: cfg.host + "clear_db",
       });
       console.log(response);
+    },
+    async onFindAE() {
+      const response = await axios({
+        method: "post",
+        url: cfg.host + "findae",
+        data: this.filename,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      // console.log(response);
+      this.ae_data = response.data;
+      console.log("ae_data");
+      console.log(this.ae_data);
     },
   },
 };

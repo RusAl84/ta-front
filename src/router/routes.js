@@ -21,6 +21,20 @@ const routes = [
       { path: '', component: () => import('pages/SaPage.vue') }
     ]
   },
+  {
+    path: '/tm',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/TmPage.vue') }
+    ]
+  },
+  {
+    path: '/vis',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Vis.vue') }
+    ]
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

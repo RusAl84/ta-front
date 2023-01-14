@@ -1,7 +1,8 @@
 ﻿import Axios from 'axios'
+import * as cfg from "../config.js";
 
 const axios = Axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: cfg.host,
 })
 
 export default class API {
@@ -12,10 +13,12 @@ export default class API {
   }
 
   // Отправка сообщения
-  static async sendMessage(UserName, MessageText) {
-    await axios.post(`/api/Messanger`, {
-      MessageText, // text: text
-      UserName,
+  static async sendMessage(text, topic_num) {
+    // console.log(topic_num)
+    const resp = await axios.post(`/tmodel`, {
+      text: text,
+      topic_num: topic_num,
     })
+    return resp.data
   }
 }
